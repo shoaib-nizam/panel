@@ -23,3 +23,7 @@ Route::post('/login',[UserController::class,'login'])->name('login');
 
 Route::get('logout',[UserController::class,'logout'])->name('logout');
 
+
+Route::get('/show',[UserController::class,'show'])->name('show');
+
+Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');

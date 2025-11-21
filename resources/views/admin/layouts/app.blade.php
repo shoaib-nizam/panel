@@ -874,7 +874,7 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-        @yield('content');
+        @yield('content')
      <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -924,6 +924,5 @@
 <script src="{{ asset ('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src=" {{ asset('admin/dist/js/adminlte.js') }}"></script>
-
 </body>
 </html>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -64,6 +65,27 @@ class UserController extends Controller
         Auth::logout();
         return view('login');
    }
+
+  
+
+   
+   public function show(Request $request)
+{
+    if ($request->ajax()) {
+        $users = User::paginate(10);
+        return response()->json($users);
+    }
+
+    return view('admin.index');
+}
+
+public function delete(Request $request)
+{
+    User::find($request->id)->delete();
+
+    return response()->json(['success' => true]);
+}
+
 
 
 }
