@@ -82,12 +82,146 @@
            <div class="col-6">
             <div class="row">
               <div class="col-3 mb-2">
-                <a href="" class="btn btn-primary" id="addUser" onclick="enter()">Add User</a>
+
+                <style>
+/* Modal background */
+.model {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* semi-transparent */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Inner modal box */
+.inner-model {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 700px;
+    animation: slideDown 0.9s ease;
+}
+
+/* Slide down animation */
+@keyframes slideDown {
+    from { transform: translateY(-200px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+</style>
+
+               
+
+
+                <button id="openModel" class="btn btn-primary">Add Record</button>
+              
+                <div class="model" id="model" >
+                    <div class="inner-model">
+
+                      <form action="" method="POST">
+                @csrf
+                <div class="row mt-4">
+                  <div class="col-6">
+                     <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter Name" name="name">
+            </div>
+                  </div>
+
+                   <div class="col-6">
+                    <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Enter Email" name="email">
+            </div>
+                  </div>
+                </div>
+           
+
+                <div class="row">
+                  <div class="col-6">
+                     <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Enter Password" name="password">
+            </div>
+                  </div>
+
+                  <div class="col-6">
+                       <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation">
+            </div>
+                  </div>
+                </div>
+            
+                <div class="row">
+                  <div class="col-6">
+                    <div class="mb-3">
+                <select class="form-select form-control" aria-label="Default select example" name="role">
+                    <option selected>Open this select menu</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    
+                  </select>
+            </div>
+                  </div>
+
+                   <div class="col-6">
+                       <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Register</button>
+               
+                {{-- <a href="{{ route('login_form') }}" class="btn btn-secondary offset-7">Sign up</a> --}}
+
+            </div>
+                  </div>
+                </div>
+
+           
+
+           
+
+
+            
+
+
+
+           
+
+            
+
+            
+        </form>
+                    
+
+                          <button id="closeModel" class="btn btn-primary">Close</button>
+                    </div>
+                </div>
+
                 <script>
-                   function enter(){
-                    alert("Enter value");
-                   }
-                  </script>  
+const openBtn = document.getElementById("openModel");
+const closeBtn = document.getElementById("closeModel");
+const modal = document.getElementById("model");
+
+// Open modal
+openBtn.addEventListener("click", function() {
+    modal.style.display = "flex";
+});
+
+// Close modal
+closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+// Close modal when clicking outside inner box
+window.addEventListener("click", function(e) {
+    if(e.target == modal) {
+        modal.style.display = "none";
+    }
+});
+</script>
+
 
                   
                
