@@ -78,8 +78,17 @@
           
         <div class="row">
           <div class="col-6">
-             <button id="" class="btn btn-primary">Add Banquat</button>
-            <table class="table table-striped mt-2 ">
+
+            <div class="row mb-2">
+              <div class="col-3">
+                 <button id="" class="btn btn-primary">Add Banquat</button>
+              </div>
+            </div>
+
+             <div class="row">
+              <div class="col-12">
+
+                <table class="table table-striped ">
                   <tr>
                     <th>ID</th>
                     <th>BANQUAT NAME</th>
@@ -104,6 +113,11 @@
                     <td>Image</td>
                   </tr>
             </table>
+
+              </div>
+            </div>
+            
+            
 
           </div>
            <div class="col-6">
