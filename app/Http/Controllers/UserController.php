@@ -18,12 +18,12 @@ class UserController extends Controller
             'role' => 'required'
         ]);
 
-        $data = DB::table('users')->insert([
-                'name' => $req->name,
-                'email' => $req->email,
-                'password' => Hash::make($req->password),
-                'role' => $req->role
-        ]);
+        $data = User::create([
+        'name' => $req->name,
+        'email' => $req->email,
+        'password' => Hash::make($req->password),
+        'role' => $req->role
+    ]);
 
         if($data){
                 return redirect()->route('login_form');

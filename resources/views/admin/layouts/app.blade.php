@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('admin/dist/css/popup.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -924,5 +925,7 @@
 <script src="{{ asset ('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src=" {{ asset('admin/dist/js/adminlte.js') }}"></script>
+
+<script src=" {{ asset('admin/dist/js/popup.js') }}"></script>
 </body>
 </html>

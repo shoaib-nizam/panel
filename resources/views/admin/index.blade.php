@@ -82,50 +82,10 @@
            <div class="col-6">
             <div class="row">
               <div class="col-3 mb-2">
-
-                <style>
-/* Modal background */
-.model {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5); /* semi-transparent */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-/* Inner modal box */
-.inner-model {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    text-align: center;
-    min-width: 700px;
-    animation: slideDown 0.9s ease;
-}
-
-/* Slide down animation */
-@keyframes slideDown {
-    from { transform: translateY(-200px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-
-</style>
-
-               
-
-
                 <button id="openModel" class="btn btn-primary">Add Record</button>
-              
                 <div class="model" id="model" >
                     <div class="inner-model">
-
-                      <form action="" method="POST">
+                      <form action="{{ route('addregister') }}" method="POST">
                 @csrf
                 <div class="row mt-4">
                   <div class="col-6">
@@ -176,22 +136,7 @@
 
             </div>
                   </div>
-                </div>
-
-           
-
-           
-
-
-            
-
-
-
-           
-
-            
-
-            
+                </div>    
         </form>
                     
 
@@ -200,26 +145,7 @@
                 </div>
 
                 <script>
-const openBtn = document.getElementById("openModel");
-const closeBtn = document.getElementById("closeModel");
-const modal = document.getElementById("model");
 
-// Open modal
-openBtn.addEventListener("click", function() {
-    modal.style.display = "flex";
-});
-
-// Close modal
-closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-});
-
-// Close modal when clicking outside inner box
-window.addEventListener("click", function(e) {
-    if(e.target == modal) {
-        modal.style.display = "none";
-    }
-});
 </script>
 
 
@@ -294,6 +220,9 @@ function deleteUser(id) {
         });
     }
 }
+
+
+
 
 
 </script>
