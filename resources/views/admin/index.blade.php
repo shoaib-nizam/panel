@@ -78,6 +78,33 @@
           
         <div class="row">
           <div class="col-6">
+             <button id="" class="btn btn-primary">Add Banquat</button>
+            <table class="table table-striped mt-2 ">
+                  <tr>
+                    <th>ID</th>
+                    <th>BANQUAT NAME</th>
+                    <th>BANQUAT ADDRESS</th>
+                    <th>BANQUAT PICS</th>
+                    <th>UPDATE</th>
+                    <th>DELETE</th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Hyper</td>
+                    <td>Latifabad hyderabad</td>
+                    <td>Image</td>
+                    <td><a href="" class="btn btn-warning">Update</a></td>
+                    <td><a href="" class="btn btn-danger">Delete</a></td>
+                  </tr>
+
+                   <tr>
+                    <td>1</td>
+                    <td>Hyper</td>
+                    <td>Latifabad hyderabad</td>
+                    <td>Image</td>
+                  </tr>
+            </table>
+
           </div>
            <div class="col-6">
             <div class="row">
