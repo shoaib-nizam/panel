@@ -86,6 +86,105 @@
                  <div class="model" id="banquatmodel" >
                     <div class="inner-model">
                       <h1>This is banquat</h1>
+
+                      {{-- banquet form under construct --}}
+
+                      <!DOCTYPE html>
+<html>
+<head>
+    <title>Add Banquet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Add New Banquet</h2>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('banquet.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="mb-3">
+            <label class="form-label">Banquet Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea name="address" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">City</label>
+            <input type="text" name="city" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Capacity</label>
+            <input type="number" name="capacity" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Price Range</label>
+            <div class="d-flex gap-2">
+                <input type="number" name="min_price" placeholder="Min" class="form-control">
+                <input type="number" name="max_price" placeholder="Max" class="form-control">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contact Person</label>
+            <input type="text" name="contact_person" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contact Phone</label>
+            <input type="text" name="contact_phone" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contact Email</label>
+            <input type="email" name="contact_email" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Images (Multiple)</label>
+            <input type="file" name="images[]" class="form-control" multiple>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Videos (Multiple)</label>
+            <input type="file" name="videos[]" class="form-control" multiple>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="status" value="1" class="form-check-input" checked>
+            <label class="form-check-label">Active</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Banquet</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+                      {{-- banquet form under construct end --}}
+
+
                       <button id="closeBanquat" class="btn btn-primary">Close</button>
                     </div>
                   </div>
