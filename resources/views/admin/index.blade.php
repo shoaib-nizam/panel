@@ -81,9 +81,21 @@
 
             <div class="row">
               <div class="col-3">
-                 <button id="" class="btn btn-primary">Add Banquat</button>
+                 <button id="openBanquat" class="btn btn-primary">Add Banquat</button>
+                 
+                 <div class="model" id="banquatmodel" >
+                    <div class="inner-model">
+                      <h1>This is banquat</h1>
+                      <button id="closeBanquat" class="btn btn-primary">Close</button>
+                    </div>
+                  </div>
+
+
               </div>
             </div>
+
+
+
             
             <table class="table table-striped mt-2 ">
                   <tr>
@@ -116,8 +128,10 @@
             <div class="row">
               <div class="col-3 mb-2">
                 <button id="openModel" class="btn btn-primary">Add Record</button>
-                <div class="model" id="model" >
+                <div class="model" id="model">
+                  
                     <div class="inner-model">
+                      <h1>Add User Record</h1>
                       <form action="{{ route('addregister') }}" method="POST">
                 @csrf
                 <div class="row mt-4">
