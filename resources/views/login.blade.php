@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 mt-5 m-auto">
-
+    <img  style="height: 130px; width:350px; margin-left:70px;margin-bottom: 20px" src="{{ asset('admin/dist/img/logo.png') }}" alt="">
     <div class="card">
   <h5 class="card-header">
     <div class="row">
@@ -41,7 +41,7 @@
 
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Login</button>
-                <a href="/" class="btn btn-primary">Back</a>
+                {{-- <a href="/" class="btn btn-primary">Back</a> --}}
                  <a href="{{ route('register') }}" class="btn btn-secondary">Sign up</a>
             </div>
 

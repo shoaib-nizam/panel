@@ -5,9 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\TestUser;
 use App\Http\Middleware\ValidUser;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::view('/sys','admin.index')->name('admin-panel')
@@ -15,7 +15,8 @@ Route::view('/sys','admin.index')->name('admin-panel')
 
 
 Route::view('/register','register')->name('register');
-Route::view('/login_form','login')->name('login_form');
+
+Route::view('/','login')->name('login_form');
 
 Route::post('/addregister',[UserController::class,'register'])->name('addregister');
 
