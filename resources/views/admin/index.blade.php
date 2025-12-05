@@ -257,10 +257,17 @@
             $('#btnBanquat').prop("disabled",true);
 
             $.ajax({
-                url: '',
-                type: '',
-                data: '',
-                success: 
+                url: '{{ route('') }}',
+                type: 'POST',
+                data: 'data',
+                processData:false,
+                contentType:false,
+                success:function(data){
+
+                },
+                error:function(e){
+
+                }
             });
         });
     });
