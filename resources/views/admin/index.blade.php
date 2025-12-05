@@ -257,7 +257,10 @@
             $('#btnBanquat').prop("disabled",true);
 
             $.ajax({
-                
+                url: '',
+                type: '',
+                data: '',
+                success: 
             });
         });
     });
