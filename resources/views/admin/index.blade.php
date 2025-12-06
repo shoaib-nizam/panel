@@ -257,16 +257,16 @@
             $('#btnBanquat').prop("disabled",true);
 
             $.ajax({
-                url: '{{ route('') }}',
-                type: 'POST',
-                data: 'data',
+                type: "POST",
+                url: "{{ route('addBanquat') }}",
+                data: "data",
                 processData:false,
                 contentType:false,
                 success:function(data){
-
+                    alert(data.res);
                 },
                 error:function(e){
-
+                    console.log(e.responseText);
                 }
             });
         });
