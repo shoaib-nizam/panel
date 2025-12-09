@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
 
                // Gate::authorize('Admin');
 
-               return redirect()->route('admin-panel');
+               return redirect()->route('dashboard');
 
                // if(Gate::allows('Admin')){
                //      return redirect()->route('admin-panel');
@@ -51,7 +52,11 @@ class UserController extends Controller
 
    public function dashboardPage(){
         
-        return redirect()->route('login_form');
+        if(Auth::check()){
+            return view('admin.index');
+        }else{
+            return redirect()->route('login_form');
+        }
 
    }
 

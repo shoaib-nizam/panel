@@ -22,6 +22,9 @@ Route::view('/','login')->name('login_form');
 Route::post('/addregister',[UserController::class,'register'])->name('addregister');
 
 Route::post('/login',[UserController::class,'login'])->name('login');
+Route::get('/dashboard',[UserController::class,'dashboardPage'])->name('dashboard');
+
+
 
 Route::get('logout',[UserController::class,'logout'])->name('logout');
 
