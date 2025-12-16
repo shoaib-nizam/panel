@@ -39,7 +39,7 @@ class UserController extends Controller
 
                // Gate::authorize('Admin');
 
-               return redirect()->route('dashboard');
+               return redirect()->route('admin-panel');
 
                // if(Gate::allows('Admin')){
                //      return redirect()->route('admin-panel');
@@ -50,15 +50,13 @@ class UserController extends Controller
             
    }
 
-   public function dashboardPage(){
-        
-        if(Auth::check()){
-            return view('admin.index');
-        }else{
-            return redirect()->route('login_form');
-        }
+//    public function dashboardPage(){
 
-   }
+
+//             return view('admin.index');
+       
+
+//    }
 
 
    public function logout(){
