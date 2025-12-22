@@ -10,9 +10,12 @@ use App\Http\Middleware\ValidUser;
 //     return view('welcome');
 // });
 
+Route::middleware(['IsUserValid','IsTestUser'])->group(function(){
+   Route::view('/sys','admin.index')->name('admin-panel'); 
+});
 
-Route::view('/sys','admin.index')->name('admin-panel')
-->middleware(['IsUserValid','IsTestUser']);
+// Route::view('/sys','admin.index')->name('admin-panel')
+// ->middleware(['IsUserValid','IsTestUser']);
 
 
 Route::view('/register','register')->name('register');
