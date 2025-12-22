@@ -16,7 +16,7 @@ class ValidUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        echo "<h1 style = 'text-align: center'>Valid User</h1>";
+        // echo "<h1 style = 'text-align: center'>Valid User</h1>";
 
       
         if(Auth::check()){

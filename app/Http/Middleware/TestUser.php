@@ -16,7 +16,7 @@ class TestUser
     public function handle(Request $request, Closure $next): Response
     {
 
-        echo "<h1 style= 'text-align: center'>Test MiddleWare</h1>";
+        // echo "<h1 style= 'text-align: center'>Test MiddleWare</h1>";
         return $next($request);
     }
 
