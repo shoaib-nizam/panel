@@ -195,6 +195,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>UPDATE</th>
                             <th>DELETE</th>
                         </tr>
@@ -223,8 +224,14 @@
                         <td>${user.id}</td>
                         <td>${user.name}</td>
                         <td>${user.email}</td>
-                        <td><button class="btn btn-warning">Update</button></td>
-                        <td><button onclick="deleteUser(${user.id})" class="btn btn-danger">Delete</button></td>
+                        <td>${user.role}</td>
+                        <td><button class="btn btn-warning">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                            </button></td>
+                        <td><button onclick="deleteUser(${user.id})" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button></td>
                     </tr>`;
                 });
                 $('#userTableBody').html(html);
