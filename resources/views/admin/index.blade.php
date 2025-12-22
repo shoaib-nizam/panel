@@ -266,7 +266,7 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route('addBanquat') }}",
-                data: "data",
+                data:data,
                 processData:false,
                 contentType:false,
                 success:function(data){

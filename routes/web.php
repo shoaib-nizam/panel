@@ -35,6 +35,8 @@ Route::get('logout',[UserController::class,'logout'])->name('logout');
 Route::get('/show',[UserController::class,'show'])->name('show');
 
 Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
+ 
+// banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
 
 
