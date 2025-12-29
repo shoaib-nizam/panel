@@ -271,9 +271,11 @@
                 contentType:false,
                 success:function(data){
                     alert(data.res);
+                      $('#btnBanquat').prop("disabled",false);
                 },
                 error:function(e){
                     console.log(e.responseText);
+                      $('#btnBanquat').prop("disabled",false);
                 }
             });
         });
