@@ -111,6 +111,8 @@
                         </form>
 
                         <button id="closeBanquet" class="btn btn-danger mt-3">Close</button>
+
+                        <div id="output"></div>
                     </div>
                 </div>
 
@@ -270,11 +272,13 @@
                 processData:false,
                 contentType:false,
                 success:function(data){
-                    alert(data.res);
+                    // alert(data.res);
+                    $('#output').text(data.res);
                       $('#btnBanquat').prop("disabled",false);
                 },
                 error:function(e){
-                    console.log(e.responseText);
+                    // console.log(e.responseText);
+                    $('#output').text(e.responseText);
                       $('#btnBanquat').prop("disabled",false);
                 }
             });
