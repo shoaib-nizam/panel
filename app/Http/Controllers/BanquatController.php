@@ -12,6 +12,7 @@ class BanquatController extends Controller
 
         $file = $request->file('bimage');
         $fileName = time().''.$file->getClientOriginalName();
+        $file->storeAs();
 
        $banquat =   new Banquat;
 
