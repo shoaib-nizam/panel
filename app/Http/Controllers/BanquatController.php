@@ -10,6 +10,11 @@ class BanquatController extends Controller
 {
     function addBanquat(Request $request){
 
+        $file = $request->file('bimage');
+        $fileName = time().''.$file->getClientOriginalName();
+
+       $banquat =   new Banquat;
+
     //      $request->validate([
     //     'bname' => 'required',
     //     'baddress' => 'required',
