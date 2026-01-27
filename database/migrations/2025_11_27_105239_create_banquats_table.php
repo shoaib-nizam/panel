@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('banquet_id');
             $table->string('banquet_name');
             $table->text('banquet_address');  
-            $table->json('banquet_image')->nullable();  
+            $table->string('banquet_image')->nullable();  
             $table->timestamps();
 
 });
