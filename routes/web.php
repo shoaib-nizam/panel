@@ -39,6 +39,7 @@ Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
 // banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
 
+Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
 
 
 
