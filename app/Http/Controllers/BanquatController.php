@@ -30,6 +30,7 @@ class BanquatController extends Controller
     function displayBanquet(){
     $banquats = Banquat::all();   // ORM
     return view('admin.index', compact('banquats'));
+    // return $banquats;
         }
 
 }

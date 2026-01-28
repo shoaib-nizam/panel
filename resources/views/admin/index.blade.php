@@ -121,6 +121,7 @@
                     <span id="banquatOutput">
 
                     </span>
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -129,15 +130,10 @@
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
-                    
-                    <tr>
-                        <td>1</td>
-                        <td>Hyper</td>
-                        <td>Latifabad Hyderabad</td>
-                        <td>Image</td>
-                        <td><a href="#" class="btn btn-warning">Update</a></td>
-                        <td><a href="#" class="btn btn-danger">Delete</a></td>
-                    </tr>
+                    </thead>
+
+                    <tbody id="banquetTableBody"></tbody>
+                   
 
                 </table>
             </div>
@@ -285,7 +281,35 @@
         });
     });
 
-  
+    
+    // ------------------- Babquet Loader ----------------------
+    // function loadBanquet(page = 1) {
+    //     $.ajax({
+    //         url: "{{ route('displayBanquet') }}";
+    //         method: "GET",
+    //         success: function(response) {
+    //             let html = "";
+    //             response.data.forEach(banquet => {
+    //                 html += `<tr>
+    //                     <td>${banquet.banquet_id}</td>
+    //                     <td>${banquet.banquet_name}</td>
+    //                     <td>${banquet.banquet_email}</td>
+    //                     <td>${banquet.banquet_address}</td>
+    //                     <td><button class="btn btn-warning">
+    //                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+    //                         </button></td>
+    //                     <td><button class="btn btn-danger">
+    //                         <i class="fa fa-trash" aria-hidden="true"></i>
+    //                         </button></td>
+    //                 </tr>`;
+    //             });
+    //             $('#banquetTableBody').html(html);
+    //         }
+    //     });
+    // }
+    // loadBanquet();
+
 </script>
 
 @endsection
