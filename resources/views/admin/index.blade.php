@@ -312,9 +312,9 @@
 
     function loadBanquet(page = 1) {
     $.ajax({
-        url: "{{ route('displayBanquet') }}", // Changed ; to ,
+        url: "{{ route('displayBanquet') }}",
         method: "GET",
-        data: { page: page }, // Now actually sends the page number to Laravel
+        data: { page: page },
         success: function(response) {
             let html = "";
             
@@ -325,8 +325,15 @@
                     <tr>
                         <td>${banquet.banquet_id}</td>
                         <td>${banquet.banquet_name}</td>
-                        <td>${banquet.banquet_email}</td>
                         <td>${banquet.banquet_address}</td>
+
+                        <td>
+    <img src="{{ asset('storage') }}/${banquet.banquet_image}" 
+         alt="Banquet Image"
+         width="100" 
+         onerror="this.onerror=null;this.src='{{ asset('images/default-placeholder.png') }}';">
+</td>
+
                         <td>
                             <button class="btn btn-warning edit-btn" data-id="${banquet.banquet_id}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
