@@ -285,7 +285,7 @@
     // ------------------- Babquet Loader ----------------------
     // function loadBanquet(page = 1) {
     //     $.ajax({
-    //         url: "{{ route('displayBanquet') }}";
+    //         url: "{{ route('displayBanquet') }}",
     //         method: "GET",
     //         success: function(response) {
     //             let html = "";
@@ -309,6 +309,52 @@
     //     });
     // }
     // loadBanquet();
+
+    function loadBanquet(page = 1) {
+    $.ajax({
+        url: "{{ route('displayBanquet') }}", // Changed ; to ,
+        method: "GET",
+        data: { page: page }, // Now actually sends the page number to Laravel
+        success: function(response) {
+            let html = "";
+            
+            // Check if data exists to avoid errors
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(banquet => {
+                    html += `
+                    <tr>
+                        <td>${banquet.banquet_id}</td>
+                        <td>${banquet.banquet_name}</td>
+                        <td>${banquet.banquet_email}</td>
+                        <td>${banquet.banquet_address}</td>
+                        <td>
+                            <button class="btn btn-warning edit-btn" data-id="${banquet.banquet_id}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger delete-btn" data-id="${banquet.banquet_id}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+                });
+            } else {
+                html = "<tr><td colspan='6' class='text-center'>No banquets found.</td></tr>";
+            }
+
+            $('#banquetTableBody').html(html);
+        },
+        error: function(xhr) {
+            console.error("Error loading banquets:", xhr.responseText);
+        }
+    });
+}
+
+// Initial call
+$(document).ready(function() {
+    loadBanquet();
+});
 
 </script>
 
