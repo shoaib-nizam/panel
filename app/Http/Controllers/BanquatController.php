@@ -30,12 +30,10 @@ class BanquatController extends Controller
    public function displayBanquet()
 {
     // Fetch all banquets from the database
-    $banquats = Banquat::all(); 
+    $banquats = Banquat::paginate(10); 
 
     // If this is for an AJAX call, return JSON
-    return response()->json([
-        'data' => $banquats
-    ]);
+    return response()->json($banquats);
 }
 
 }
