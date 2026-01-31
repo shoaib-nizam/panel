@@ -118,6 +118,10 @@
 
                 {{-- BANQUET TABLE --}}
                 <table class="table table-striped mt-3">
+
+                     <div>
+                        <input type="text" placeholder="Search Banquet....." class="form-control" name="banquetsearch" id="banquetsearch">
+                    </div>
                     <span id="banquatOutput">
 
                     </span>
@@ -131,6 +135,9 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
+                    <div id="banquet_list">
+                        banquet Display
+                    </div>
 
                     <tbody id="banquetTableBody"></tbody>
                    
@@ -187,7 +194,12 @@
                 </div>
 
                 {{-- USER TABLE --}}
+               
                 <table class="table table-striped">
+                    <div>
+                        <input type="text" placeholder="Search Record" class="form-control">
+                    </div>
+                     
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -283,34 +295,7 @@
 
     
     // ------------------- Babquet Loader ----------------------
-    // function loadBanquet(page = 1) {
-    //     $.ajax({
-    //         url: "{{ route('displayBanquet') }}",
-    //         method: "GET",
-    //         success: function(response) {
-    //             let html = "";
-    //             response.data.forEach(banquet => {
-    //                 html += `<tr>
-    //                     <td>${banquet.banquet_id}</td>
-    //                     <td>${banquet.banquet_name}</td>
-    //                     <td>${banquet.banquet_email}</td>
-    //                     <td>${banquet.banquet_address}</td>
-    //                     <td><button class="btn btn-warning">
-    //                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-    //                         </button></td>
-    //                     <td><button class="btn btn-danger">
-    //                         <i class="fa fa-trash" aria-hidden="true"></i>
-    //                         </button></td>
-    //                 </tr>`;
-    //             });
-    //             $('#banquetTableBody').html(html);
-    //         }
-    //     });
-    // }
-    // loadBanquet();
-
-    function loadBanquet(page = 1) {
+     function loadBanquet(page = 1) {
     $.ajax({
         url: "{{ route('displayBanquet') }}",
         method: "GET",
@@ -361,6 +346,13 @@
 // Initial call
 $(document).ready(function() {
     loadBanquet();
+});
+
+$(document).ready(function(){
+    $("#banquetsearch").on('keyup',function(){
+        var val = $(this).val();
+        $.ajax();
+    });
 });
 
 </script>

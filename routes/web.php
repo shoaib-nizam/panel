@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TestUser;
 use App\Http\Middleware\ValidUser;
+use App\Http\Controllers\SearchController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -38,8 +39,9 @@ Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
  
 // banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
-
 Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
+Route::get('/banquetsearch',[SearchController::class,'banquetSearch'])->name('banquetSearch');
+
 
 
 
