@@ -154,40 +154,74 @@
                 <div class="model" id="userModal">
                     <div class="inner-model">
                         <h2>Add User Record</h2>
+                        <form action="{{ route('dashboardRegister') }}" method="POST">
+    @csrf
+    
+    <div class="row">
+        {{-- Name Field --}}
+        <div class="col-6">
+            <input type="text" 
+                   name="name" 
+                   value="{{ old('name') }}" 
+                   class="form-control @error('name') is-invalid @enderror" 
+                   placeholder="Enter Name">
+            @error('name')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
 
-                        <form action="{{ route('addregister') }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-6">
-                                    <input class="form-control" type="text" placeholder="Enter Name" name="name">
-                                </div>
-                                <div class="col-6">
-                                    <input class="form-control" type="email" placeholder="Enter Email" name="email">
-                                </div>
-                            </div>
+        {{-- Email Field --}}
+        <div class="col-6">
+            <input type="email" 
+                   name="email" 
+                   value="{{ old('email') }}" 
+                   class="form-control @error('email') is-invalid @enderror" 
+                   placeholder="Enter Email">
+            @error('email')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
 
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    <input class="form-control" type="password" placeholder="Password" name="password">
-                                </div>
-                                <div class="col-6">
-                                    <input class="form-control" type="password" placeholder="Confirm Password" name="password_confirmation">
-                                </div>
-                            </div>
+    <div class="row mt-3">
+        {{-- Password Field (Removed old() for security) --}}
+        <div class="col-6">
+            <input type="password" 
+                   name="password" 
+                   class="form-control @error('password') is-invalid @enderror" 
+                   placeholder="Enter Password">
+            @error('password')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
 
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    <select class="form-control" name="role">
-                                        <option value="">Select Role</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-primary">Register</button>
-                                </div>
-                            </div>
-                        </form>
+        {{-- Confirm Password Field --}}
+        <div class="col-6">
+            <input type="password" 
+                   name="password_confirmation" 
+                   class="form-control" 
+                   placeholder="Confirm Password">
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        {{-- Role Selection --}}
+        <div class="col-6">
+            <select class="form-control @error('role') is-invalid @enderror" name="role">
+                <option value="" selected disabled>Select Role</option>
+                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+            </select>
+            @error('role')
+                <span class="text-danger small">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="col-6">
+            <button type="submit" class="btn btn-primary w-100">Register Account</button>
+        </div>
+    </div>
+</form>
 
                         <button id="closeUser" class="btn btn-danger mt-3">Close</button>
                     </div>

@@ -27,6 +27,21 @@ class UserController extends Controller
         }
    }
 
+
+     public function dashboardRegister(UserRequest $req){
+       
+         $data = User::create([
+        'name' => $req->name,
+        'email' => $req->email,
+        'password' => Hash::make($req->password),
+        'role' => $req->role
+    ]);
+
+        // if($data){
+        //         return redirect()->route('login_form');
+        // }
+   }
+
    public function login(Request $req){
 
         $vali =  $req->validate([
