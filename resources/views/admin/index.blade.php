@@ -154,71 +154,42 @@
                 <div class="model" id="userModal">
                     <div class="inner-model">
                         <h2>Add User Record</h2>
-                        <form action="{{ route('dashboardRegister') }}" method="POST">
+                        <form id="registrationForm" action="{{ route('dashboardRegister') }}" method="POST">
     @csrf
-    
+    <div id="successMessage" class="alert alert-success d-none"></div>
+
     <div class="row">
-        {{-- Name Field --}}
         <div class="col-6">
-            <input type="text" 
-                   name="name" 
-                   value="{{ old('name') }}" 
-                   class="form-control @error('name') is-invalid @enderror" 
-                   placeholder="Enter Name">
-            @error('name')
-                <span class="text-danger small">{{ $message }}</span>
-            @enderror
+            <input type="text" name="name" class="form-control" placeholder="Enter Name">
+            <span class="text-danger small error-text name_error"></span>
         </div>
-
-        {{-- Email Field --}}
         <div class="col-6">
-            <input type="email" 
-                   name="email" 
-                   value="{{ old('email') }}" 
-                   class="form-control @error('email') is-invalid @enderror" 
-                   placeholder="Enter Email">
-            @error('email')
-                <span class="text-danger small">{{ $message }}</span>
-            @enderror
+            <input type="email" name="email" class="form-control" placeholder="Enter Email">
+            <span class="text-danger small error-text email_error"></span>
         </div>
     </div>
 
     <div class="row mt-3">
-        {{-- Password Field (Removed old() for security) --}}
         <div class="col-6">
-            <input type="password" 
-                   name="password" 
-                   class="form-control @error('password') is-invalid @enderror" 
-                   placeholder="Enter Password">
-            @error('password')
-                <span class="text-danger small">{{ $message }}</span>
-            @enderror
+            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+            <span class="text-danger small error-text password_error"></span>
         </div>
-
-        {{-- Confirm Password Field --}}
         <div class="col-6">
-            <input type="password" 
-                   name="password_confirmation" 
-                   class="form-control" 
-                   placeholder="Confirm Password">
+            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
         </div>
     </div>
 
     <div class="row mt-3">
-        {{-- Role Selection --}}
         <div class="col-6">
-            <select class="form-control @error('role') is-invalid @enderror" name="role">
+            <select class="form-control" name="role">
                 <option value="" selected disabled>Select Role</option>
-                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
             </select>
-            @error('role')
-                <span class="text-danger small">{{ $message }}</span>
-            @enderror
+            <span class="text-danger small error-text role_error"></span>
         </div>
-
         <div class="col-6">
-            <button type="submit" class="btn btn-primary w-100">Register Account</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary w-100">Register Account</button>
         </div>
     </div>
 </form>
@@ -388,6 +359,45 @@ $(document).ready(function(){
         $.ajax();
     });
 });
+
+
+    $(document).ready(function() {
+    $('#registrationForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Reset error messages and button state
+        $(document).find('span.error-text').text('');
+        $('#submitBtn').prop('disabled', true).text('Processing...');
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: new FormData(this),
+            processData: false,
+            dataType: 'json',
+            contentType: false,
+            success: function(response) {
+                $('#submitBtn').prop('disabled', false).text('Register Account');
+                if (response.status == 200) {
+                    $('#registrationForm')[0].reset();
+                    $('#successMessage').removeClass('d-none').text(response.message);
+                }
+            },
+            error: function(xhr) {
+                $('#submitBtn').prop('disabled', false).text('Register Account');
+                
+                // If Laravel returns validation errors (422 Unprocessable Entity)
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    $.each(errors, function(key, value) {
+                        $('span.' + key + '_error').text(value[0]);
+                    });
+                }
+            }
+        });
+    });
+});
+
 
 </script>
 
