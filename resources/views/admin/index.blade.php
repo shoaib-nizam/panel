@@ -361,7 +361,7 @@ $(document).ready(function(){
     $("#banquetsearch").on('keyup',function(){
         var val = $(this).val();
         $.ajax({
-            url: "{{ route('banquetsearch') }}",
+            url: "{{ route('banquetSearch') }}",
             type: "GET",
             data:{'name':val},
             success:function(data){
