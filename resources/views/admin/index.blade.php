@@ -115,12 +115,18 @@
                         <div id="output"></div>
                     </div>
                 </div>
-
+                      {{-- <div id="banquet_list" class="m-auto">
+                        <h4>Banquet Display</h4>
+                    </div> --}}
                 {{-- BANQUET TABLE --}}
                 <table class="table table-striped mt-3">
 
                      <div>
                         <input type="text" placeholder="Search Banquet....." class="form-control" name="banquetsearch" id="banquetsearch">
+                    </div>
+
+                    <div id="banquet_list">
+
                     </div>
                     <span id="banquatOutput">
 
@@ -135,9 +141,7 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
-                    <div id="banquet_list">
-                        banquet Display
-                    </div>
+                  
 
                     <tbody id="banquetTableBody"></tbody>
                    
@@ -356,7 +360,14 @@ $(document).ready(function() {
 $(document).ready(function(){
     $("#banquetsearch").on('keyup',function(){
         var val = $(this).val();
-        $.ajax();
+        $.ajax({
+            url: "{{ route('banquetsearch') }}",
+            type: "GET",
+            data:{'name':val},
+            success:function(data){
+                $("#banquet_list").html(data);
+            }
+        });
     });
 });
 
@@ -378,7 +389,7 @@ $(document).ready(function(){
             contentType: false,
             success: function(response) {
                 $('#submitBtn').prop('disabled', false).text('Register Account');
-                if (response.status == 200) {
+                if (response.status === true) {
                     $('#registrationForm')[0].reset();
                     $('#successMessage').removeClass('d-none').text(response.message);
                 }
