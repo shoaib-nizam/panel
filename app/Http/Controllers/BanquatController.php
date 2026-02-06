@@ -27,14 +27,23 @@ class BanquatController extends Controller
     }
 
 
-   public function displayBanquet()
+   public function displayBanquet(Request $req)
 {
-    // Fetch all banquets from the database
-    $banquats = Banquat::paginate(10); 
 
-    // If this is for an AJAX call, return JSON
-    return response()->json($banquats);
+$query = Banquat::query(); 
+
+if($req->ajax()){
+  $bnq =   $query->where('banquet_name','LIKE','%'.$req->searchBanquet.'%')->get();
+  return response()->json(['bnq' => $bnq]);
+}else{
+    $banquats = $query->get();
+    return view('admin.index',compact('banquats'));
 }
+   
+    
+}
+
+
 
 
 }

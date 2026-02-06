@@ -115,9 +115,7 @@
                         <div id="output"></div>
                     </div>
                 </div>
-                      {{-- <div id="banquet_list" class="m-auto">
-                        <h4>Banquet Display</h4>
-                    </div> --}}
+                    
                 {{-- BANQUET TABLE --}}
                 <table class="table table-striped mt-3">
 
@@ -141,10 +139,25 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
-                  
+                    {{-- <tbody id="banquetTableBody"></tbody> --}}
 
-                    <tbody id="banquetTableBody"></tbody>
-                   
+                    <tbody>
+                   @if(count($banquats) > 0)
+                 @foreach($banquats as $banquat)
+                      <tr>
+                    <td>{{ $banquat->banquet_id }}</td>
+                    <td>{{ $banquat->banquet_name }}</td>
+                    <td>{{ $banquat->banquet_address }}</td>
+                    <td>{{ $banquat->banquet_image }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="4">No Data Found</td>
+                    </tr>
+                @endif
+
+                    </tbody>
 
                 </table>
             </div>
@@ -304,7 +317,7 @@
 
     
     // ------------------- Babquet Loader ----------------------
-     function loadBanquet(page = 1) {
+ /*    function loadBanquet(page = 1) {
     $.ajax({
         url: "{{ route('displayBanquet') }}",
         method: "GET",
@@ -312,7 +325,7 @@
         success: function(response) {
             let html = "";
             
-            // Check if data exists to avoid errors
+            
             if (response.data && response.data.length > 0) {
                 response.data.forEach(banquet => {
                     html += `
@@ -352,13 +365,27 @@
     });
 }
 
-// Initial call
 $(document).ready(function() {
     loadBanquet();
 });
 
+*/
 
+$(document).ready(function(){
+    $('#banquetsearch').on('keyup',function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{{ route('displayBanquet') }}",
+            type: "GET",
+            data:{'searchBanquet':value},
+            success:function(data){
+                console.log(data);
+               
 
+            }
+        });
+    });
+});
 
     $(document).ready(function() {
     $('#registrationForm').on('submit', function(e) {
