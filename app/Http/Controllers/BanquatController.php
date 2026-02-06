@@ -36,4 +36,5 @@ class BanquatController extends Controller
     return response()->json($banquats);
 }
 
+
 }

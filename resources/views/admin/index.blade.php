@@ -357,19 +357,7 @@ $(document).ready(function() {
     loadBanquet();
 });
 
-$(document).ready(function(){
-    $("#banquetsearch").on('keyup',function(){
-        var val = $(this).val();
-        $.ajax({
-            url: "{{ route('banquetSearch') }}",
-            type: "GET",
-            data:{'name':val},
-            success:function(data){
-                $("#banquet_list").html(data);
-            }
-        });
-    });
-});
+
 
 
     $(document).ready(function() {
