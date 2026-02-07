@@ -27,21 +27,43 @@ class BanquatController extends Controller
     }
 
 
-   public function displayBanquet(Request $req)
+
+
+public function displayBanquet(Request $req)
 {
+    $query = Banquat::query();
 
-$query = Banquat::query(); 
+    if ($req->ajax()) {
+        $banquats = $query
+            ->where('banquet_name', 'LIKE', '%' . $req->searchBanquet . '%')
+            ->get();
 
-if($req->ajax()){
-  $bnq =   $query->where('banquet_name','LIKE','%'.$req->searchBanquet.'%')->get();
-  return response()->json(['bnq' => $bnq]);
-}else{
+        $output = '';
+
+        if ($banquats->count() > 0) {
+            foreach ($banquats as $banquat) {
+                $output .= '
+                <tr>
+                    <td>'.$banquat->banquet_id.'</td>
+                    <td>'.$banquat->banquet_name.'</td>
+                    <td>'.$banquat->banquet_address.'</td>
+                    <td>'.$banquat->banquet_image.'</td>
+                </tr>';
+            }
+        } else {
+            $output .= '
+            <tr>
+                <td colspan="4">No Data Found</td>
+            </tr>';
+        }
+
+        return $output;
+    }
+
     $banquats = $query->get();
-    return view('admin.index',compact('banquats'));
+    return view('admin.index', compact('banquats'));
 }
-   
-    
-}
+
 
 
 

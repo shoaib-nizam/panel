@@ -139,25 +139,24 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
-                    {{-- <tbody id="banquetTableBody"></tbody> --}}
+                  
+                <tbody id="tbody">
+    @if(!empty($banquats) && count($banquats) > 0)
+        @foreach($banquats as $banquat)
+            <tr>
+                <td>{{ $banquat->banquet_id }}</td>
+                <td>{{ $banquat->banquet_name }}</td>
+                <td>{{ $banquat->banquet_address }}</td>
+                <td>{{ $banquat->banquet_image }}</td>
+            </tr>
+        @endforeach
+    @else
+        <tr>
+            <td colspan="4">No Data Found</td>
+        </tr>
+    @endif
+</tbody>
 
-                    <tbody>
-                   @if(count($banquats) > 0)
-                 @foreach($banquats as $banquat)
-                      <tr>
-                    <td>{{ $banquat->banquet_id }}</td>
-                    <td>{{ $banquat->banquet_name }}</td>
-                    <td>{{ $banquat->banquet_address }}</td>
-                    <td>{{ $banquat->banquet_image }}</td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="4">No Data Found</td>
-                    </tr>
-                @endif
-
-                    </tbody>
 
                 </table>
             </div>
@@ -372,16 +371,15 @@ $(document).ready(function() {
 */
 
 $(document).ready(function(){
-    $('#banquetsearch').on('keyup',function(){
-        var value = $(this).val();
+    $('#banquetsearch').on('keyup', function(){
+        let value = $(this).val();
+
         $.ajax({
             url: "{{ route('displayBanquet') }}",
             type: "GET",
-            data:{'searchBanquet':value},
-            success:function(data){
-                console.log(data);
-               
-
+            data: { searchBanquet: value },
+            success: function(data){
+                $('#tbody').html(data);
             }
         });
     });
