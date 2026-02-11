@@ -122,14 +122,8 @@
                      <div>
                         <input type="text" placeholder="Search Banquet....." class="form-control" name="banquetsearch" id="banquetsearch">
                     </div>
-
-                    <div id="banquet_list">
-
-                    </div>
-                    <span id="banquatOutput">
-
-                    </span>
-                    <thead>
+                  
+                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -139,20 +133,26 @@
                         <th>Delete</th>
                     </tr>
                     </thead>
+
+
+                   
+                   
                   
                 <tbody id="tbody">
     @if(!empty($banquats) && count($banquats) > 0)
         @foreach($banquats as $banquat)
-            <tr>
+            <tr >
                 <td>{{ $banquat->banquet_id }}</td>
                 <td>{{ $banquat->banquet_name }}</td>
                 <td>{{ $banquat->banquet_address }}</td>
                 <td>{{ $banquat->banquet_image }}</td>
+                <td><a href="">Update</a></td>
+                <td><a href="">Delete</a></td>
             </tr>
         @endforeach
     @else
         <tr>
-            <td colspan="4">No Data Found</td>
+            <td colspan="6">No Data Found</td>
         </tr>
     @endif
 </tbody>
@@ -316,64 +316,11 @@
 
     
     // ------------------- Babquet Loader ----------------------
- /*    function loadBanquet(page = 1) {
-    $.ajax({
-        url: "{{ route('displayBanquet') }}",
-        method: "GET",
-        data: { page: page },
-        success: function(response) {
-            let html = "";
-            
-            
-            if (response.data && response.data.length > 0) {
-                response.data.forEach(banquet => {
-                    html += `
-                    <tr>
-                        <td>${banquet.banquet_id}</td>
-                        <td>${banquet.banquet_name}</td>
-                        <td>${banquet.banquet_address}</td>
-
-                        <td>
-    <img src="{{ asset('storage') }}/${banquet.banquet_image}" 
-         alt="Banquet Image"
-         width="100" 
-         onerror="this.onerror=null;this.src='{{ asset('images/default-placeholder.png') }}';">
-</td>
-
-                        <td>
-                            <button class="btn btn-warning edit-btn" data-id="${banquet.banquet_id}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger delete-btn" data-id="${banquet.banquet_id}">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>`;
-                });
-            } else {
-                html = "<tr><td colspan='6' class='text-center'>No banquets found.</td></tr>";
-            }
-
-            $('#banquetTableBody').html(html);
-        },
-        error: function(xhr) {
-            console.error("Error loading banquets:", xhr.responseText);
-        }
-    });
-}
-
-$(document).ready(function() {
-    loadBanquet();
-});
-
-*/
+ 
 
 $(document).ready(function(){
-    $('#banquetsearch').on('keyup', function(){
-        let value = $(this).val();
 
+    function loadBanquetData(value = '') {
         $.ajax({
             url: "{{ route('displayBanquet') }}",
             type: "GET",
@@ -382,8 +329,25 @@ $(document).ready(function(){
                 $('#tbody').html(data);
             }
         });
+    }
+
+    
+    loadBanquetData();
+
+    $('#banquetsearch').on('keyup', function(){
+        let value = $(this).val();
+
+        if(value !== '') {
+            loadBanquetData(value);
+        } else {
+            loadBanquetData();
+        }
     });
+
 });
+
+
+
 
     $(document).ready(function() {
     $('#registrationForm').on('submit', function(e) {

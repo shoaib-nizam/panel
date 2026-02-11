@@ -34,9 +34,7 @@ public function displayBanquet(Request $req)
     $query = Banquat::query();
 
     if ($req->ajax()) {
-        $banquats = $query
-            ->where('banquet_name', 'LIKE', '%' . $req->searchBanquet . '%')
-            ->get();
+        $banquats = $query->where('banquet_name', 'LIKE', '%' . $req->searchBanquet . '%')->get();
 
         $output = '';
 
@@ -63,8 +61,6 @@ public function displayBanquet(Request $req)
     $banquats = $query->get();
     return view('admin.index', compact('banquats'));
 }
-
-
 
 
 
