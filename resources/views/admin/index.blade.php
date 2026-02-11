@@ -139,23 +139,8 @@
                    
                   
                 <tbody id="tbody">
-    @if(!empty($banquats) && count($banquats) > 0)
-        @foreach($banquats as $banquat)
-            <tr >
-                <td>{{ $banquat->banquet_id }}</td>
-                <td>{{ $banquat->banquet_name }}</td>
-                <td>{{ $banquat->banquet_address }}</td>
-                <td>{{ $banquat->banquet_image }}</td>
-                <td><a href="">Update</a></td>
-                <td><a href="">Delete</a></td>
-            </tr>
-        @endforeach
-    @else
-        <tr>
-            <td colspan="6">No Data Found</td>
-        </tr>
-    @endif
-</tbody>
+
+                    </tbody>
 
 
                 </table>

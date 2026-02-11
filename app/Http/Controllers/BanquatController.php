@@ -31,7 +31,7 @@ class BanquatController extends Controller
 
 public function displayBanquet(Request $req)
 {
-    $query = Banquat::query();
+    $query = Banquat::query()->take(5);
 
     if ($req->ajax()) {
         $banquats = $query->where('banquet_name', 'LIKE', '%' . $req->searchBanquet . '%')->get();
@@ -45,13 +45,15 @@ public function displayBanquet(Request $req)
                     <td>'.$banquat->banquet_id.'</td>
                     <td>'.$banquat->banquet_name.'</td>
                     <td>'.$banquat->banquet_address.'</td>
-                    <td>'.$banquat->banquet_image.'</td>
+                     <td><img src="'.asset('storage/'.$banquat->banquet_image).'" width="100" /></td>
+                       <td><a href="#" class="btn btn-warning">Update</a></td>
+                        <td><a href="#" class="btn btn-danger">Delete</a></td>
                 </tr>';
             }
         } else {
             $output .= '
             <tr>
-                <td colspan="4">No Data Found</td>
+                <td colspan="6">No Data Found</td>
             </tr>';
         }
 
