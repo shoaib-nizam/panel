@@ -34,6 +34,8 @@ Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
 Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
 
+Route::view('/manage','admin.manage')->name('manage');
+
 
 
 
