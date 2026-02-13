@@ -97,18 +97,47 @@ public function dashboardRegister(UserRequest $req)
         return view('login');
    }
 
-  
 
-   
-   public function show(Request $request)
+   public function show(Request $req)
 {
-    if ($request->ajax()) {
-        $users = User::paginate(10);
-        return response()->json($users);
+    $query = User::query()->take(5);
+
+    if ($req->ajax()) {
+
+        $users = $query->where('name', 'LIKE', '%' . $req->users . '%')->get();
+
+        $output = '';
+
+        if ($users->count() > 0) {
+
+            foreach ($users as $user) {
+
+                $output .= '
+                <tr>
+                    <td>'.$user->id.'</td>
+                    <td>'.$user->name.'</td>
+                    <td>'.$user->email.'</td>
+                    <td>'.$user->role.'</td>
+                    <td><a href="#" class="btn btn-warning">Update</a></td>
+                    <td><a href="#" class="btn btn-danger">Delete</a></td>
+                </tr>';
+            }
+
+        } else {
+
+            $output .= '
+            <tr>
+                <td colspan="6">No Data Found</td>
+            </tr>';
+        }
+
+        return $output;
     }
 
-    return view('admin.index');
+    $users = $query->get();
+    return view('admin.index', compact('users'));
 }
+
 
 public function delete(Request $request)
 {

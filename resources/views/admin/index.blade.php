@@ -203,7 +203,7 @@
                
                 <table class="table table-striped">
                     <div>
-                        <input type="text" placeholder="Search Record" class="form-control">
+                        <input type="text" placeholder="Search Record" class="form-control" id="search">
                     </div>
                      
                     <thead>
@@ -229,32 +229,35 @@
 
 <script>
     // ------------------- USER LOADER ----------------------
-    function loadUsers(page = 1) {
-        $.ajax({
-            url: "/show?page=" + page,
-            method: "GET",
-            success: function(response) {
-                let html = "";
-                response.data.forEach(user => {
-                    html += `<tr>
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.role}</td>
-                        <td><button class="btn btn-warning">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                            </button></td>
-                        <td><button onclick="deleteUser(${user.id})" class="btn btn-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button></td>
-                    </tr>`;
-                });
-                $('#userTableBody').html(html);
+    $(document).ready(function(){
+    function loadUserData(searchValue = '') {
+        $.ajax({
+            url: "{{ route('users.show') }}",
+            type: "GET",
+            data: { users: searchValue },
+            success: function (response) {
+                $("#userTableBody").html(response);
             }
         });
-    }
-    loadUsers();
+    }  
+      
+    loadUserData();
+    $('#search').on('keyup', function(){
+        let value = $(this).val();
+
+        if(value !== '') {
+            loadUserData(value);
+        } else {
+            loadUserData();
+        }
+    });
+
+});
+
+
+
+
 
     function deleteUser(id) {
         if (confirm("Are you sure you want to delete this user?")) {

@@ -45,7 +45,7 @@ public function displayBanquet(Request $req)
                     <td>'.$banquat->banquet_id.'</td>
                     <td>'.$banquat->banquet_name.'</td>
                     <td>'.$banquat->banquet_address.'</td>
-                     <td><img src="'.asset('storage/'.$banquat->banquet_image).'" width="100" /></td>
+                     <td><img style="border-radius: 10px" src="'.asset('storage/'.$banquat->banquet_image).'" width="80" /></td>
                        <td><a href="#" class="btn btn-warning">Update</a></td>
                         <td><a href="#" class="btn btn-danger">Delete</a></td>
                 </tr>';

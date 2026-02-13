@@ -28,7 +28,7 @@ Route::post('/dashboardRegister',[UserController::class,'dashboardRegister'])->n
 Route::post('/login',[UserController::class,'login'])->name('login');
 Route::get('/dashboard',[UserController::class,'dashboardPage'])->name('dashboard');
 Route::get('logout',[UserController::class,'logout'])->name('logout');
-Route::get('/show',[UserController::class,'show'])->name('show');
+Route::get('/show',[UserController::class,'show'])->name('users.show');
 Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
 // banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
