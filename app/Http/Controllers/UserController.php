@@ -119,7 +119,8 @@ public function dashboardRegister(UserRequest $req)
                     <td>'.$user->email.'</td>
                     <td>'.$user->role.'</td>
                     <td><a href="#" class="btn btn-warning">Update</a></td>
-                    <td><a href="#" class="btn btn-danger">Delete</a></td>
+<td><button data-id="'.$user->id.'" class="btn btn-danger deleteUser">Delete</button></td>
+
                 </tr>';
             }
 
@@ -139,13 +140,20 @@ public function dashboardRegister(UserRequest $req)
 }
 
 
-public function delete(Request $request)
+
+
+public function destroy($id)
 {
-    User::find($request->id)->delete();
+    $user = User::find($id);
 
-    return response()->json(['success' => true]);
+    if(!$user){
+        return response()->json(['status' => false]);
+    }
+
+    $user->delete();
+
+    return response()->json(['status' => true]);
 }
-
 
 
 }

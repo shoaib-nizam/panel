@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
 
 <style>
@@ -256,20 +256,32 @@
 });
 
 
+    $(document).on('click', '.deleteUser', function () {
 
-
-
-    function deleteUser(id) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            $.post('/user/delete', {
-                id: id,
-                _token: '{{ csrf_token() }}'
-            }, function(response) {
-                alert("User deleted successfully");
-                loadUsers(); 
-            });
-        }
+    if(!confirm('Are you sure you want to delete this user?')) {
+        return;
     }
+
+    let userId = $(this).data('id');
+    let row = $(this).closest('tr');
+
+    $.ajax({
+        url: '/users/' + userId,
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            row.remove();
+            alert('User deleted successfully');
+        },
+        error: function(error) {
+            alert('Something went wrong');
+        }
+    });
+
+});
+
 
     // Banquat record Insert With Ajax
 

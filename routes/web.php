@@ -29,7 +29,7 @@ Route::post('/login',[UserController::class,'login'])->name('login');
 Route::get('/dashboard',[UserController::class,'dashboardPage'])->name('dashboard');
 Route::get('logout',[UserController::class,'logout'])->name('logout');
 Route::get('/show',[UserController::class,'show'])->name('users.show');
-Route::post('/user/delete', [UserController::class, 'delete'])->name('delete');
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
 // banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
 Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
