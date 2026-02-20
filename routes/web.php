@@ -33,7 +33,7 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 // banquat routes 
 Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBanquat');
 Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
-
+Route::delete('/banquets/{id}', [BanquatController::class, 'destroy']);
 Route::view('/manage','admin.manage')->name('manage');
 
 

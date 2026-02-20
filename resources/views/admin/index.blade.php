@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="SOME_RANDOM_TOKEN">
 @section('content')
 
 <style>
@@ -384,6 +385,42 @@ $(document).ready(function(){
             }
         });
     });
+});
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    }
+});
+
+$(document).on('click', '.deleteBanquet', function () {
+
+    if(!confirm('Are you sure?')) return;
+
+    let id = $(this).data('id');
+    let row = $(this).closest('tr');
+
+    $.ajax({
+        url: '/banquets/' + id,
+        type: 'POST',
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            _method: 'DELETE'
+        },
+        success: function(response) {
+            if(response.status){
+                row.remove();
+                alert(response.message);
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText); // yahan se exact 500 reason dekh sakte hain
+            alert('Error: ' + xhr.status);
+        }
+    });
+
 });
 
 

@@ -119,7 +119,7 @@ public function dashboardRegister(UserRequest $req)
                     <td>'.$user->email.'</td>
                     <td>'.$user->role.'</td>
                     <td><a href="#" class="btn btn-warning">Update</a></td>
-<td><button data-id="'.$user->id.'" class="btn btn-danger deleteUser">Delete</button></td>
+                    <td><button data-id="'.$user->id.'" class="btn btn-danger deleteUser">Delete</button></td>
 
                 </tr>';
             }
@@ -154,6 +154,5 @@ public function destroy($id)
 
     return response()->json(['status' => true]);
 }
-
 
 }

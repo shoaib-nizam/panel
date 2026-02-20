@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Banquat;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Storage;
 
 
 class BanquatController extends Controller
@@ -47,7 +48,7 @@ public function displayBanquet(Request $req)
                     <td>'.$banquat->banquet_address.'</td>
                      <td><img style="border-radius: 10px" src="'.asset('storage/'.$banquat->banquet_image).'" width="80" /></td>
                        <td><a href="#" class="btn btn-warning">Update</a></td>
-                        <td><a href="#" class="btn btn-danger">Delete</a></td>
+<td><button data-id="'.$banquat->banquet_id.'" class="btn btn-danger deleteBanquet">Delete</button></td>
                 </tr>';
             }
         } else {
@@ -65,5 +66,26 @@ public function displayBanquet(Request $req)
 }
 
 
+
+public function destroy($id)
+{
+    try {
+        $banquet = Banquat::findOrFail($id); // findOrFail auto 404 throw karega
+
+        // Optional: image delete
+        if($banquet->banquet_image && Storage::disk('public')->exists($banquet->banquet_image)) {
+            Storage::disk('public')->delete($banquet->banquet_image);
+        }
+
+        $banquet->delete();
+
+        return response()->json(['status' => true, 'message' => 'Banquet deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => $e->getMessage()  // ye actual 500 reason show karega
+        ], 500);
+    }
+}
 
 }
