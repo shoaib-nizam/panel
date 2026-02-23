@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -153,6 +154,13 @@ public function destroy($id)
     $user->delete();
 
     return response()->json(['status' => true]);
+}
+
+public function usersCount(): JsonResponse
+{
+    return response()->json([
+        'totalUsers'  => User::count(),
+    ]);
 }
 
 }

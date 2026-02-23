@@ -21,6 +21,9 @@ Route::middleware(['IsUserValid','IsTestUser'])->group(function(){
 
 Route::view('/register','register')->name('register');
 Route::view('/','login')->name('login_form');
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard/users-count', [UserController::class, 'usersCount'])->name('dashboard.users.count');
 Route::post('/addregister',[UserController::class,'register'])->name('addregister');
 
 Route::post('/dashboardRegister',[UserController::class,'dashboardRegister'])->name('dashboardRegister');
