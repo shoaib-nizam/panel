@@ -7,9 +7,7 @@ use App\Http\Middleware\TestUser;
 use App\Http\Middleware\ValidUser;
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::view('/welcome','welcome');
 
 Route::middleware(['IsUserValid','IsTestUser'])->group(function(){
    Route::view('/sys','admin.index')->name('admin-panel'); 

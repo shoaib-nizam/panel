@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<meta name="csrf-token" content="SOME_RANDOM_TOKEN">
+
 @section('content')
 
 <style>
@@ -225,13 +225,13 @@
 
     </div>
 </section>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('jquery/jquery.js') }}"></script>
 
 <script>
     // ------------------- USER INSERT ----------------------
 
-            $(document).ready(function() {
+           /* $(document).ready(function() {
     $('#registrationForm').on('submit', function(e) {
         e.preventDefault();
 
@@ -272,8 +272,78 @@ $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
+});*/
+
+$(document).ready(function() {
+    $('#registrationForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Reset error messages and button state
+        $(document).find('span.error-text').text('');
+        $('#submitBtn').prop('disabled', true).text('Processing...');
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: new FormData(this),
+            processData: false,
+            dataType: 'json',
+            contentType: false,
+            success: function(response) {
+                $('#submitBtn').prop('disabled', false).text('Register Account');
+
+                if (response.status === true) {
+                    $('#registrationForm')[0].reset();
+
+                    // ✅ SweetAlert Success Popup
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function(xhr) {
+                $('#submitBtn').prop('disabled', false).text('Register Account');
+
+                // If Laravel returns validation errors (422)
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+
+                    $.each(errors, function(key, value) {
+                        $('span.' + key + '_error').text(value[0]);
+                    });
+
+                    // ❌ SweetAlert Error Popup
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please fix the errors and try again.',
+                        confirmButtonColor: '#d33'
+                    });
+                } else {
+                    // ❌ General Error Popup
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong! Please try again.',
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            }
+        });
+    });
 });
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute('content')
+    }
+});
 
 
 
