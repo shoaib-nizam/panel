@@ -231,48 +231,7 @@
 <script>
     // ------------------- USER INSERT ----------------------
 
-           /* $(document).ready(function() {
-    $('#registrationForm').on('submit', function(e) {
-        e.preventDefault();
-
-        // Reset error messages and button state
-        $(document).find('span.error-text').text('');
-        $('#submitBtn').prop('disabled', true).text('Processing...');
-
-        $.ajax({
-            url: $(this).attr('action'),
-            method: $(this).attr('method'),
-            data: new FormData(this),
-            processData: false,
-            dataType: 'json',
-            contentType: false,
-            success: function(response) {
-                $('#submitBtn').prop('disabled', false).text('Register Account');
-                if (response.status === true) {
-                    $('#registrationForm')[0].reset();
-                    $('#successMessage').removeClass('d-none').text(response.message);
-                }
-            },
-            error: function(xhr) {
-                $('#submitBtn').prop('disabled', false).text('Register Account');
-                
-                // If Laravel returns validation errors (422 Unprocessable Entity)
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function(key, value) {
-                        $('span.' + key + '_error').text(value[0]);
-                    });
-                }
-            }
-        });
-    });
-});
-
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-});*/
+           
 
 $(document).ready(function() {
     $('#registrationForm').on('submit', function(e) {
