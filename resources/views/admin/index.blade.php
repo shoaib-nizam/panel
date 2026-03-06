@@ -231,15 +231,25 @@
 <script src="{{ asset('jquery/jquery.js') }}"></script>
 
 <script>
-    // ------------------- USER INSERT ----------------------
 
-  $(document).ready(function() {
-    // 1. Setup CSRF Token for all AJAX requests
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+   
+    // ------------------- USER INSERT / USER LOADER ----------------------
+
+$(document).ready(function() {
+    // 1. Function to Load/Refresh Table Data
+    function loadUserData(searchValue = '') {
+        $.ajax({
+            url: "{{ route('users.show') }}",
+            type: "GET",
+            data: { users: searchValue },
+            success: function (response) {
+                $("#userTableBody").html(response);
+            }
+        });
+    }
+
+    // Initial Load on page startup
+    loadUserData();
 
     // 2. Form Submission Handler
     $('#registrationForm').on('submit', function(e) {
@@ -249,7 +259,6 @@
         let $submitBtn = $('#submitBtn');
         let $modal = $('#userModal');
 
-        // Reset error messages & disable button
         $('.error-text').text('');
         $submitBtn.prop('disabled', true).text('Processing...');
 
@@ -262,8 +271,11 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status === true) {
-                    $form[0].reset(); // Clear form
-                    $modal.hide();    // Close the custom modal
+                    $form[0].reset(); 
+                    $modal.hide();    
+
+                    // ✅ REFRESH TABLE DATA HERE
+                    loadUserData(); 
 
                     Swal.fire({
                         icon: 'success',
@@ -274,69 +286,40 @@
                 }
             },
             error: function(xhr) {
-                // If Laravel returns validation errors (422)
                 if (xhr.status === 422) {
                     let errors = xhr.responseJSON.errors;
                     $.each(errors, function(key, value) {
                         $('span.' + key + '_error').text(value[0]);
                     });
-
+                    
                     Swal.fire({
                         icon: 'error',
                         title: 'Validation Error',
-                        text: 'Please check the highlighted fields.',
-                        confirmButtonColor: '#d33'
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong! Please try again.',
+                        text: 'Please check the errors.',
                         confirmButtonColor: '#d33'
                     });
                 }
             },
             complete: function() {
-                // Re-enable button regardless of success or error
                 $submitBtn.prop('disabled', false).text('Register Account');
             }
         });
     });
 
-    // 3. Manual Close Button Handler
+    // 3. Live Search Logic
+    $('#search').on('keyup', function(){
+        let value = $(this).val();
+        loadUserData(value); 
+    });
+
+    // 4. Modal Manual Close
     $('#closeUser').on('click', function() {
         $('#userModal').hide();
     });
 });
 
 
-    // ------------------- USER LOADER ----------------------
-
-    $(document).ready(function(){
-     function loadUserData(searchValue = '') {
-        $.ajax({
-            url: "{{ route('users.show') }}",
-            type: "GET",
-            data: { users: searchValue },
-            success: function (response) {
-                $("#userTableBody").html(response);
-            }
-        });
-    }  
-      
-    loadUserData();
-    $('#search').on('keyup', function(){
-        let value = $(this).val();
-
-        if(value !== '') {
-            loadUserData(value);
-        } else {
-            loadUserData();
-        }
-    });
-
-});
-
+  // ------------------- USER DELETE ----------------------
 
     $(document).on('click', '.deleteUser', function () {
 
