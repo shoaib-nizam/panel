@@ -200,6 +200,8 @@
                     </div>
                 </div>
 
+                
+
                 {{-- USER TABLE --}}
                
                 <table class="table table-striped">
@@ -231,59 +233,61 @@
 <script>
     // ------------------- USER INSERT ----------------------
 
-           
+  $(document).ready(function() {
+    // 1. Setup CSRF Token for all AJAX requests
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-$(document).ready(function() {
+    // 2. Form Submission Handler
     $('#registrationForm').on('submit', function(e) {
         e.preventDefault();
 
-        // Reset error messages and button state
-        $(document).find('span.error-text').text('');
-        $('#submitBtn').prop('disabled', true).text('Processing...');
+        let $form = $(this);
+        let $submitBtn = $('#submitBtn');
+        let $modal = $('#userModal');
+
+        // Reset error messages & disable button
+        $('.error-text').text('');
+        $submitBtn.prop('disabled', true).text('Processing...');
 
         $.ajax({
-            url: $(this).attr('action'),
-            method: $(this).attr('method'),
+            url: $form.attr('action'),
+            method: $form.attr('method'),
             data: new FormData(this),
             processData: false,
-            dataType: 'json',
             contentType: false,
+            dataType: 'json',
             success: function(response) {
-                $('#submitBtn').prop('disabled', false).text('Register Account');
-
                 if (response.status === true) {
-                    $('#registrationForm')[0].reset();
+                    $form[0].reset(); // Clear form
+                    $modal.hide();    // Close the custom modal
 
-                    // ✅ SweetAlert Success Popup
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
                         text: response.message,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
+                        confirmButtonColor: '#3085d6'
                     });
                 }
             },
             error: function(xhr) {
-                $('#submitBtn').prop('disabled', false).text('Register Account');
-
                 // If Laravel returns validation errors (422)
                 if (xhr.status === 422) {
                     let errors = xhr.responseJSON.errors;
-
                     $.each(errors, function(key, value) {
                         $('span.' + key + '_error').text(value[0]);
                     });
 
-                    // ❌ SweetAlert Error Popup
                     Swal.fire({
                         icon: 'error',
                         title: 'Validation Error',
-                        text: 'Please fix the errors and try again.',
+                        text: 'Please check the highlighted fields.',
                         confirmButtonColor: '#d33'
                     });
                 } else {
-                    // ❌ General Error Popup
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -291,20 +295,19 @@ $(document).ready(function() {
                         confirmButtonColor: '#d33'
                     });
                 }
+            },
+            complete: function() {
+                // Re-enable button regardless of success or error
+                $submitBtn.prop('disabled', false).text('Register Account');
             }
         });
     });
+
+    // 3. Manual Close Button Handler
+    $('#closeUser').on('click', function() {
+        $('#userModal').hide();
+    });
 });
-
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute('content')
-    }
-});
-
-
 
 
     // ------------------- USER LOADER ----------------------
