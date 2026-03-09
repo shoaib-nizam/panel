@@ -363,14 +363,42 @@ loadUserStats();
 // Auto refresh every 5 seconds
 setInterval(loadUserStats, 5000);
     
-    //Banquet Record Inserted
-    $(document).ready(function () {
+// Banquet Record Code
+$(document).ready(function () {
 
+    // ------------------- Banquet Loader ----------------------
+    function loadBanquetData(value = '') {
+        $.ajax({
+            url: "{{ route('displayBanquet') }}",
+            type: "GET",
+            data: { searchBanquet: value },
+            success: function(data){
+                $('#tbody').html(data);
+            }
+        });
+    }
+
+    // Load data when page loads
+    loadBanquetData();
+
+
+    // ------------------- Search Banquet ----------------------
+    $('#banquetsearch').on('keyup', function(){
+        let value = $(this).val();
+
+        if(value !== ''){
+            loadBanquetData(value);
+        }else{
+            loadBanquetData();
+        }
+    });
+
+
+    // ------------------- Insert Banquet ----------------------
     $('#addBanquat').on('submit', function (e) {
         e.preventDefault();
 
-        var form = this;
-        var formData = new FormData(form);
+        var formData = new FormData(this);
 
         $('#btnBanquat').prop('disabled', true);
 
@@ -407,6 +435,9 @@ setInterval(loadUserStats, 5000);
                     timer: 2000,
                     showConfirmButton: false
                 });
+
+                // 🔥 Reload banquet list automatically
+                loadBanquetData();
             },
 
             error: function () {
@@ -425,45 +456,6 @@ setInterval(loadUserStats, 5000);
     });
 
 });
-
-
-    
-    
-    // ------------------- Banquet Loader ----------------------
- 
-
-$(document).ready(function(){
-
-    function loadBanquetData(value = '') {
-        $.ajax({
-            url: "{{ route('displayBanquet') }}",
-            type: "GET",
-            data: { searchBanquet: value },
-            success: function(data){
-                $('#tbody').html(data);
-            }
-        });
-    }
-
-    
-    loadBanquetData();
-
-    $('#banquetsearch').on('keyup', function(){
-        let value = $(this).val();
-
-        if(value !== '') {
-            loadBanquetData(value);
-        } else {
-            loadBanquetData();
-        }
-    });
-
-});
-
-
-
-
-
 
 $(document).on('click', '.deleteBanquet', function () {
 
