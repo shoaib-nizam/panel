@@ -363,35 +363,69 @@ loadUserStats();
 // Auto refresh every 5 seconds
 setInterval(loadUserStats, 5000);
     
-// Banquat record Insert With Ajax
-    $(document).ready(function(){
-        $('#addBanquat').submit(function(event){
-            event.preventDefault();
+    //Banquet Record Inserted
+    $(document).ready(function () {
 
-            var form = $('#addBanquat')[0];
-            var data = new FormData(form);
+    $('#addBanquat').on('submit', function (e) {
+        e.preventDefault();
 
-            $('#btnBanquat').prop("disabled",true);
+        var form = this;
+        var formData = new FormData(form);
 
-            $.ajax({
-                type: "POST",
-                url: "{{ route('addBanquat') }}",
-                data:data,
-                processData:false,
-                contentType:false,
-                success:function(data){
-                    // alert(data.res);
-                    $('#output').text(data.res);
-                      $('#btnBanquat').prop("disabled",false);
-                },
-                error:function(e){
-                    // console.log(e.responseText);
-                    $('#output').text(e.responseText);
-                      $('#btnBanquat').prop("disabled",false);
-                }
-            });
+        $('#btnBanquat').prop('disabled', true);
+
+        Swal.fire({
+            title: 'Processing...',
+            text: 'Saving record, please wait.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
         });
+
+        $.ajax({
+            url: "{{ route('addBanquat') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+
+            success: function (response) {
+
+                $('#btnBanquat').prop('disabled', false);
+
+                // Reset form
+                $('#addBanquat')[0].reset();
+
+                // Close modal
+                $('#banquetModal').hide();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Inserted!',
+                    text: 'Record Inserted Successfully',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            },
+
+            error: function () {
+
+                $('#btnBanquat').prop('disabled', false);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Record not inserted!'
+                });
+            }
+
+        });
+
     });
+
+});
+
 
     
     
