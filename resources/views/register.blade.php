@@ -75,7 +75,7 @@
             </div>
 
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label>*</label>
                 <select class="form-select" aria-label="Default select example" name="role">
                     <option selected>Open this select menu</option>
@@ -83,7 +83,7 @@
                     <option value="user">User</option>
                     
                   </select>
-            </div>
+            </div> --}}
 
 
 

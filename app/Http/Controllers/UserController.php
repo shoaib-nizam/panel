@@ -16,11 +16,18 @@ class UserController extends Controller
 {
    public function register(UserRequest $req){
        
+                $role = $req->input('role');
+
+                    if (empty($role)) {
+                        $role = 'user';
+                                }
+
+
          $data = User::create([
         'name' => $req->name,
         'email' => $req->email,
         'password' => Hash::make($req->password),
-        'role' => $req->role
+        'role' => $role,
     ]);
 
         if($data){
