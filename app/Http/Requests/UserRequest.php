@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
              'name' => 'required',
             'email' => 'required|email|unique:App\Models\User,email',
             'password' => 'required|confirmed|alpha_num|min:6',
-            'role' => 'required'
+            // 'role' => 'required'
         ];
     }
 }

@@ -23,11 +23,11 @@
 
   </h5>
   <div class="card-body">
-    {{-- <ul>
+     <ul>
         @foreach ( $errors->all() as $error )
     <li>{{ $error }}</li>
 @endforeach
-    </ul> --}}
+    </ul>
     
 
         <form action="{{ route('addregister') }}" method="POST">

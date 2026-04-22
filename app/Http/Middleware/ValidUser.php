@@ -19,12 +19,30 @@ class ValidUser
         // echo "<h1 style = 'text-align: center'>Valid User</h1>";
 
       
-        if(Auth::check()){
-            return $next($request);
-    }
-    else{
+    //     if(Auth::check()){
+    //         return $next($request);
+    // }
+    // else{
+    //     return redirect()->route('login_form');
+    // }
+
+     if (Auth::check()) {
+
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            return redirect()->route('admin-panel');
+        } 
+        else {
+            return redirect()->route('user.dashboard');
+        }
+
+    } 
+    else {
         return redirect()->route('login_form');
     }
+
+
 
     }
 }

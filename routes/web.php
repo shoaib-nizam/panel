@@ -13,6 +13,11 @@ Route::middleware(['IsUserValid','IsTestUser'])->group(function(){
    Route::view('/sys','admin.index')->name('admin-panel'); 
 });
 
+Route::middleware(['IsUserValid','IsTestUser'])->group(function(){
+   Route::view('/user','user.user')->name('user-panel'); 
+});
+
+
 // Route::view('/sys','admin.index')->name('admin-panel')
 // ->middleware(['IsUserValid','IsTestUser']);
 
@@ -23,7 +28,6 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/dashboard/users-count', [UserController::class, 'usersCount'])->name('dashboard.users.count');
 Route::post('/addregister',[UserController::class,'register'])->name('addregister');
-
 Route::post('/dashboardRegister',[UserController::class,'dashboardRegister'])->name('dashboardRegister');
 
 Route::post('/login',[UserController::class,'login'])->name('login');
