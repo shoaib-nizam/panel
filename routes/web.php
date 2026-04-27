@@ -16,7 +16,9 @@ Route::view('/welcome','welcome');
 
 
 Route::view('/sys','admin.index')->name('admin-panel')
-->middleware(['IsUserValid','IsTestUser']);
+->middleware(['IsUserValid:admin','IsTestUser']);
+
+Route::view('/simple','user/user')->name('user');
 
 
 Route::view('/register','register')->name('register');

@@ -14,33 +14,23 @@ class ValidUser
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
         // echo "<h1 style = 'text-align: center'>Valid User</h1>";
+        echo "<h1 style='text-align:center'>".$role."</h1>";
 
       
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->role == $role){
             return $next($request);
+    }
+      elseif(Auth::check() && Auth::user()->role == "user"){
+            return redirect()->route('user');
     }
     else{
         return redirect()->route('login_form');
     }
 
-    //  if (Auth::check()) {
-
-    //     $user = Auth::user();
-
-    //     if ($user->role == 'admin') {
-    //         return redirect()->route('admin-panel');
-    //     } 
-    //     else {
-    //         return redirect()->route('user.dashboard');
-    //     }
-
-    // } 
-    // else {
-    //     return redirect()->route('login_form');
-    // }
+   
 
 
 
