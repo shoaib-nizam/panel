@@ -219,7 +219,7 @@
               <li class="nav-item">
                 <a href="{{ route('manage') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>View Statitics</p>
+                  <p>Owner & Banquet</p>
                 </a>
               </li>
               <li class="nav-item">
