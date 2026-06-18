@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('role',['user','admin'])->default('user');
-            $table->timestamps();
-        });
+       Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->unsignedBigInteger('banquet_owner_id')->nullable();
+    $table->foreign('banquet_owner_id')->references('banquet_id')->on('banquats')->onDelete('cascade');
+    $table->string('email')->unique();
+    $table->string('password');
+    $table->enum('role', ['user', 'admin'])->default('user');
+    $table->timestamps();
+});
     }
 
     /**
