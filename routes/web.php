@@ -3,6 +3,7 @@
 use App\Http\Controllers\BanquatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ManageController;
 use App\Http\Middleware\TestUser;
 use App\Http\Middleware\ValidUser;
 
@@ -39,7 +40,11 @@ Route::post('/banquetAdd',[BanquatController::class,'addBanquat'])->name('addBan
 Route::get('/displayBanquet', [BanquatController::class, 'displayBanquet'])->name('displayBanquet');
 Route::delete('/banquets/{id}', [BanquatController::class, 'destroy']);
 
+
+// Management Route
 Route::view('/manage','admin.manage')->name('manage');
+
+Route::get('/showmanage',[ManageController::class,'manage_show'])->name('manage_show');
 
 
 
