@@ -9,7 +9,7 @@ class ManageController extends Controller
 {
 
 function manage_show(){
-   $manage =  Manage::all();
+   $manage =  Manage::where('role', 'user')->get();
 
    return view('admin.manage',['data' => $manage]);
 }
